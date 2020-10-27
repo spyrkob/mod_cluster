@@ -302,8 +302,11 @@ public class ModClusterService implements ModClusterServiceMBean, ContainerEvent
 
         if (this.include(context)) {
             // Send ENABLE-APP if state is started
-            if (this.established && context.isStarted()) {
+            if (this.established) {
                 this.enable(context);
+                if (!context.isStarted()) {
+                    this.stop(context);
+                }
             }
         }
     }
